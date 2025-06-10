@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/script.js" defer></script>
+</head>
+<body class="dashboard">
+  <div class="home">
+  <h2>Welcome, <%= student.name %>!</h2>
+  <p>Your email: <%= student.email %></p>
+  <p>Status: <%= student.is_approved ? 'Approved' : 'Pending Approval' %></p>
+
+  <h3>Request Bonafide Certificate</h3>
+  <form action="/student/request" method="POST">
+    <!-- <label for="purpose">Purpose of Bonafide:</label><br>
+    <input type="text" id="purpose" name="purpose" required><br><br>
+    <button type="submit">Submit Request</button> -->
+      <label for="purpose">Enter your paragraph:</label>
+<textarea id="purpose" name="purpose" rows="6" cols="50" placeholder="Type your paragraph here..."></textarea>
+   <label for="name">Name:</label>
+    <input type="text" name="name" placeholder="Eg: Thaara S"required>
+     <label for="number">Register No:</label>
+    <input type="text" name="number" placeholder="Eg: 230371772318161" required>
+   <label for="category">Year</label>
+<select id="category" name="category">
+  <option value="">--Select--</option>
+  <option value="I">I</option>
+  <option value="II">II</option>
+    <option value="III">III</option>
+  <option value="IV">IV</option>
+</select>
+
+   <label for="category1">Branch</label>
+<select id="category1" name="category1">
+  <option value="">--Select--</option>
+  <option value="IT">Information Technology</option>
+  <option value="CSE">Computer Science</option>
+    <option value="MECH">Mechanical</option>
+  <option value="CIVIL">Civil</option>
+</select>
+
+   <label for="category2">COURSE</label>
+<select id="category2" name="category2">
+  <option value="">--Select--</option>
+  <option value="BE">BE</option>
+  <option value="BTECH">BTECH</option>
+ 
+</select>
+
+    <button type="submit">Submit Request</button>
+  </form>
+
+  <h3>Your Requests</h3>
+  <% if (requests && requests.length > 0) { %>
+    <table border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Purpose</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% requests.forEach(function(request) { %>
+          <tr>
+            <td><%= request.id %></td>
+            <td><%= request.purpose %></td>
+            <td><%= request.status %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No requests found.</p>
+  <% } %>
+  <h3>Your Requests</h3>
+<% if (requests && requests.length > 0) { %>
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Purpose</th>
+        <th>Status</th>
+        <th>Download Certificate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% requests.forEach(req => { %>
+        <tr>
+          <td><%= req.purpose %></td>
+          <td><%= req.status %></td>
+          <td>
+            <% if (req.status === 'approved') { %>
+              <a href="/student/certificate/<%= req.id %>/download">Download</a>
+            <% } else { %>
+              Not available
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>No requests found.</p>
+<% } %>
+
+  </div>
+</body>
+</html>

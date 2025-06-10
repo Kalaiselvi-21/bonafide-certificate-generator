@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+<script src="/js/script.js" defer></script>
+
+</head>
+<body>
+<div class="home">
+  <h2 >Bonafide Certificate Requests<br></h2>
+
+<table border="2">
+  <tr>
+    <th>Student</th>
+    <th>Email</th>
+    <th>Purpose</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <% requests.forEach(r => { %>
+    <tr>
+      <td><%= r.name %></td>
+      <td><%= r.email %></td>
+      <td><%= r.purpose %></td>
+      <td><%= r.status %></td>
+      <td>
+        <% if (r.status === 'pending') { %>
+          <form method="POST" action="/admin/approve/<%= r.id %>" style="display:inline;">
+            <button type="submit">Approve</button>
+          </form>
+          <form method="POST" action="/admin/reject/<%= r.id %>" style="display:inline;">
+            <button type="submit">Reject</button>
+          </form>
+        <% } else { %>
+          <%= r.status %>
+        <% } %>
+      </td>
+    </tr>
+  <% }); %>
+</table></div>
+</body>
+</html>
+

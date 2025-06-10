@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+ <link rel="stylesheet" href="/css/style.css">
+<script src="/js/script.js" defer></script>
+
+</head>
+ <body class="dashboard">
+  <!-- <div class="home">-->
+  <div class="home"> 
+    <h2>Welcome Admin!</h2>
+
+    <h3>Pending Bonafide Requests</h3><br>
+
+    <% if (students.length === 0) { %>
+      <p>No pending requests.</p>
+    <% } else { %>
+      <table border="1" width="100%" cellspacing="0" cellpadding="8">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Purpose</th>
+          <th>Action</th>
+        </tr>
+
+        <% students.forEach(student => { %>
+          <tr>
+            <td><%= student.name %></td>
+            <td><%= student.email %></td>
+            <td><%= student.purpose %></td>
+            <td>
+              <form action="/admin/approve" method="POST" style="display:inline;">
+                <input type="hidden" name="student_id" value="<%= student.id %>">
+                <button type="submit">Approve</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </table>
+    <% } %>
+
+    <br>
+    <form action="/admin/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+</body>
+</html>
