@@ -167,7 +167,7 @@ exports.downloadCertificate = async (req, res) => {
 
   try {
     const [rows] = await db.execute(
-      'SELECT * FROM requests WHERE id = ? AND student_id = ? AND status = "approved"',
+      "SELECT * FROM requests WHERE id = ? AND student_id = ? AND status = 'approved'",
       [requestId, student.id]
     );
 
