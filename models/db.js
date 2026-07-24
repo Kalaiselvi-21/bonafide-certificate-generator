@@ -22,4 +22,4 @@ const db = mysql.createPool({
   }
 });
 
-module.exports = pool.promise(); // Export promise-based pool for async/await
+module.exports = db.promise(); // Export promise-based pool for async/await

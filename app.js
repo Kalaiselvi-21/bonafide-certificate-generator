@@ -13,8 +13,6 @@ require("dotenv").config();
 //   database: 'bonafide_db'
 // });
 
-const mysql = require("mysql2");
-
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
