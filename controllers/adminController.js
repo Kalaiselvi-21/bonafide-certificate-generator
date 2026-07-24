@@ -32,9 +32,24 @@ exports.viewRequests = async (req, res) => {
 };
 
 exports.approveRequest = async (req, res) => {
-  const id = req.params.id;
-  await db.execute('UPDATE requests SET status = "approved" WHERE id = ?', [id]);
-  res.redirect('/admin/requests');
+  try {
+    const id = req.params.id;
+
+    console.log("Approving request ID:", id);
+
+    const [result] = await db.execute(
+      'UPDATE requests SET status = "approved" WHERE id = ?',
+      [id]
+    );
+
+    console.log("Update result:", result);
+
+    res.redirect('/admin/requests');
+
+  } catch (error) {
+    console.log("Approve Error:", error);
+    res.status(500).send(error.message);
+  }
 };
 
 exports.rejectRequest = async (req, res) => {
